@@ -1,4 +1,5 @@
 // js/core/guards.js
+import { path } from "./config.js";
 import { getUser } from "./session.js";
 import { isPlatformAdmin } from "../data/admin.api.js";
 import { getMyMemberships } from "../data/members.api.js";
@@ -7,7 +8,7 @@ import { pickHighestRole, dashboardPathForRole } from "./roles.js";
 export async function requireAuth() {
   const user = await getUser();
   if (!user) {
-    window.location.replace("/login.html");
+    window.location.replace path("/login.html");
     return null;
   }
   return user;
@@ -24,7 +25,7 @@ export async function enforceRoleRouting() {
 
   const admin = await isPlatformAdmin(user.id);
   if (admin) {
-    const target = "/app/admin/dashboard.html";
+    const target = path("/app/admin/dashboard.html")
     if (window.location.pathname !== target) window.location.replace(target);
     return;
   }
@@ -35,7 +36,7 @@ export async function enforceRoleRouting() {
 
   if (!highest) {
     // Logged in but not in any org yet: send to pricing or a "create/join org" page later
-    window.location.replace("/pricing.html");
+    window.location.replace path("/pricing.html");
     return;
   }
 
@@ -53,7 +54,7 @@ export async function redirectIfLoggedIn() {
 
   const admin = await isPlatformAdmin(user.id);
   if (admin) {
-    window.location.replace("/app/admin/dashboard.html");
+    window.location.replace path("/app/admin/dashboard.html");
     return;
   }
 
@@ -62,7 +63,7 @@ export async function redirectIfLoggedIn() {
   const highest = pickHighestRole(roles);
 
   if (!highest) {
-    window.location.replace("/pricing.html");
+    window.location.replace path("/pricing.html");
     return;
   }
 
