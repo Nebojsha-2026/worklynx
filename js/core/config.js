@@ -8,4 +8,8 @@ export const CONFIG = {
   // Default UI options
   DEFAULT_CURRENCY: "AUD",
   DEFAULT_LANG: "en",
+  BASE_PATH: "/Worklynx",
 };
+export function path(p) {
+  return `${CONFIG.BASE_PATH}${p}`;
+}
