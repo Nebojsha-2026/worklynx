@@ -10,16 +10,11 @@ export function pickHighestRole(roles) {
 
 export function dashboardPathForRole(role) {
   switch (role) {
-    case "BO":
-      return "/app/bo/dashboard.html";
-    case "BM":
-      return "/app/bm/dashboard.html";
-    case "MANAGER":
-      return "/app/manager/dashboard.html";
-    case "EMPLOYEE":
-      return "/app/employee/dashboard.html";
-    default:
-      return "/login.html";
+    case "BO": return path("/app/bo/dashboard.html");
+    case "BM": return path("/app/bm/dashboard.html");
+    case "MANAGER": return path("/app/manager/dashboard.html");
+    case "EMPLOYEE": return path("/app/employee/dashboard.html");
+    default: return path("/login.html");
   }
 }
 
