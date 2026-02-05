@@ -1,1 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <title>WorkLynx</title>
+</head>
+<body>
+  <main class="wl-auth">
+    <h1>WorkLynx</h1>
+    <p>Modern timesheets & shift management for teams.</p>
+
+    <div class="wl-actions">
+      <a class="wl-btn" href="login.html">Log in</a>
+      <a class="wl-btn wl-btn--ghost" href="register.html">Create account</a>
+      <a class="wl-btn wl-btn--ghost" href="pricing.html">View pricing</a>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="js/pages/index.page.js"></script>
+</body>
+</html>
 
