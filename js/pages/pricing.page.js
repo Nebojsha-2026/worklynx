@@ -1,10 +1,10 @@
 // js/pages/pricing.page.js
 import { getSession } from "../core/session.js";
 import { path } from "../core/config.js";
+import { createOrganization } from "../data/orgs.api.js";
 
 const session = await getSession();
 if (!session?.user) {
-  // Not logged in → send to login
   window.location.replace(path("/login.html"));
 }
 
@@ -20,6 +20,17 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  // TEMP: next step will actually create the org
-  alert(`Company "${name}" will be created next step.`);
+  try {
+    form.querySelector("button").disabled = true;
+
+    await createOrganization({ name });
+
+    // Now you have a BO role → routing will send you to BO dashboard
+    window.location.replace(path("/app/bo/dashboard.html"));
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Failed to create company.");
+  } finally {
+    form.querySelector("button").disabled = false;
+  }
 });
