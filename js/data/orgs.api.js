@@ -10,18 +10,16 @@ export async function createOrganization({ name }) {
   if (!user) throw new Error("Not logged in.");
 
   // 1) Create org
-  const { data: org, error: orgErr } = await supabase
-    .from("organizations")
-    .insert({
-      name,
-      owner_user_id: user.id,
-      currency_code: "AUD",
-      theme: {},
-    })
-    .select("id, name")
-    .single();
+  const { error: orgErr } = await supabase
+  .from("organizations")
+  .insert({
+    name,
+    owner_user_id: user.id,
+    currency_code: "AUD",
+    theme: {},
+  });
 
-  if (orgErr) throw orgErr;
+if (orgErr) throw orgErr;=
 
   // 2) Add you as BO member
   const { error: memErr } = await supabase.from("org_members").insert({
