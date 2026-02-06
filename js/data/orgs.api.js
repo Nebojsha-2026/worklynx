@@ -19,7 +19,7 @@ export async function createOrganization({ name }) {
     theme: {},
   });
 
-if (orgErr) throw orgErr;=
+if (orgErr) throw orgErr;
 
   // 2) Add you as BO member
   const { error: memErr } = await supabase.from("org_members").insert({
