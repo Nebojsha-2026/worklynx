@@ -9,19 +9,30 @@ export async function createOrganization({ name }) {
   const user = userRes?.user;
   if (!user) throw new Error("Not logged in.");
 
-  // 1) Create org
+  // 1) Insert organization (NO select here)
   const { error: orgErr } = await supabase
-  .from("organizations")
-  .insert({
-    name,
-    owner_user_id: user.id,
-    currency_code: "AUD",
-    theme: {},
-  });
+    .from("organizations")
+    .insert({
+      name,
+      owner_user_id: user.id,
+      currency_code: "AUD",
+      theme: {},
+    });
 
-if (orgErr) throw orgErr;
+  if (orgErr) throw orgErr;
 
-  // 2) Add you as BO member
+  // 2) Fetch the org we just created
+  const { data: org, error: fetchErr } = await supabase
+    .from("organizations")
+    .select("id")
+    .eq("owner_user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single();
+
+  if (fetchErr) throw fetchErr;
+
+  // 3) Add BO membership
   const { error: memErr } = await supabase.from("org_members").insert({
     organization_id: org.id,
     user_id: user.id,
@@ -33,4 +44,3 @@ if (orgErr) throw orgErr;
 
   return org;
 }
-
