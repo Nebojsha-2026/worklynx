@@ -4,14 +4,14 @@ import { isPlatformAdmin } from "../data/admin.api.js";
 import { getMyMemberships } from "../data/members.api.js";
 import { pickHighestRole, dashboardPathForRole } from "./roles.js";
 
-export async function redirectIfLoggedIn() {
-  const session = await getSession();
-  const user = session?.user;
+export async function enforceRoleRouting() {
+  const user = await requireAuth();
   if (!user) return;
 
   const admin = await isPlatformAdmin(user.id);
   if (admin) {
-    window.location.replace(path("/app/admin/dashboard.html"));
+    const target = path("/app/admin/dashboard.html");
+    if (window.location.pathname !== target) window.location.replace(target);
     return;
   }
 
@@ -24,5 +24,6 @@ export async function redirectIfLoggedIn() {
     return;
   }
 
-  window.location.replace(dashboardPathForRole(highest));
+  const target = dashboardPathForRole(highest);
+  if (window.location.pathname !== target) window.location.replace(target);
 }
