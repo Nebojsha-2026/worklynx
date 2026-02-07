@@ -22,11 +22,16 @@ async function main() {
 history.replaceState(null, "", window.location.pathname);
 
   const session = await getSession();
-  if (!session?.user) {
-    statusEl.textContent = "Please register or log in first, then reopen the invite link.";
-    window.location.replace(path("/register.html"));
-    return;
-  }
+ if (!session?.user) {
+  statusEl.textContent = "Please log in or register to accept the invite.";
+
+  const resumeUrl =
+    path("/login.html") +
+    `#resumeInvite=${encodeURIComponent(token)}`;
+
+  window.location.replace(resumeUrl);
+  return;
+}
 
   const supabase = getSupabase();
 
