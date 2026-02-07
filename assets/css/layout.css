@@ -118,17 +118,15 @@ main.wl-page, main.wl-auth{
   margin-top: 16px;
 }
 
-@media (max-width: 900px){
-  .wl-cards{ grid-template-columns: 1fr; }
-
-  /* SIDEBAR LAYOUT */
+/* SIDEBAR LAYOUT (desktop default) */
 .wl-shell{
   width: min(var(--wl-max), calc(100% - (var(--wl-pad) * 2)));
   margin: 0 auto;
   display:grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 260px 1fr;
   gap: 14px;
   padding: 18px 0 32px;
+  align-items: start;
 }
 
 .wl-sidebar{
@@ -142,9 +140,13 @@ main.wl-page, main.wl-auth{
   display:flex;
   flex-direction:column;
   gap: 6px;
+  margin-top: 6px;
 }
 
-.wl-snav__item{
+.wl-sidebar .wl-snav__item{
+  display:block !important;
+  width:100%;
+  box-sizing:border-box;
   padding: 10px 10px;
   border-radius: 10px;
   text-decoration:none;
@@ -153,18 +155,21 @@ main.wl-page, main.wl-auth{
   border: 1px solid transparent;
 }
 
-.wl-snav__item:hover{
+.wl-sidebar .wl-snav__item:hover{
   background: rgba(255,255,255,0.05);
   border-color: rgba(255,255,255,0.10);
 }
 
-.wl-snav__item.is-active{
+.wl-sidebar .wl-snav__item.is-active{
   background: rgba(255,255,255,0.08);
   border-color: rgba(255,255,255,0.18);
   opacity: 1;
 }
 
+/* RESPONSIVE */
 @media (max-width: 900px){
+  .wl-cards{ grid-template-columns: 1fr; }
+
   .wl-shell{
     grid-template-columns: 1fr;
   }
@@ -172,34 +177,8 @@ main.wl-page, main.wl-auth{
     position: relative;
     top: auto;
   }
-}
 
   .wl-org{ justify-content:flex-start; }
   .wl-actions{ min-width: unset; }
   .wl-brand{ min-width: unset; }
-}
-/* Ensure sidebar + content sit side-by-side on desktop */
-@media (min-width: 901px){
-  .wl-shell{
-    grid-template-columns: 260px 1fr;
-    align-items: start;
-  }
-  .wl-sidebar{
-    display: block;
-  }
-}
-/* Sidebar links must always stack vertically (override any global <a> rules) */
-.wl-sidebar .wl-snav__item{
-  display: block !important;
-  width: 100%;
-  box-sizing: border-box;
-}
-/* Sidebar links must always stack vertically (override any global <a> rules) */
-.wl-sidebar .wl-snav__item{
-  display: block !important;
-  width: 100%;
-  box-sizing: border-box;
-}
-.wl-sidebar .wl-snav{
-  margin-top: 6px;
 }
