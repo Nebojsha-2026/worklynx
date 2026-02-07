@@ -29,6 +29,7 @@ main.innerHTML = `
 `;
 
 main.querySelector("#wlSidebar").append(renderSidebar("BM"));
+console.log("Sidebar mounted:", main.querySelector("#wlSidebar").innerHTML);
 
 main.querySelector("#wlContent").innerHTML = `
   <h1>Business Manager Dashboard</h1>
