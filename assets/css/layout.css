@@ -1,1 +1,126 @@
+/* assets/css/layout.css */
 
+:root{
+  --wl-max: 1100px;
+  --wl-pad: 16px;
+  --wl-card: rgba(255,255,255,0.06);
+  --wl-border: rgba(255,255,255,0.12);
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+main.wl-page, main.wl-auth{
+  width: min(var(--wl-max), calc(100% - (var(--wl-pad) * 2)));
+  margin: 0 auto;
+  padding: 24px 0 32px;
+  flex: 1;
+}
+
+/* HEADER */
+.wl-header{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--wl-border);
+}
+
+.wl-header__inner{
+  width: min(var(--wl-max), calc(100% - (var(--wl-pad) * 2)));
+  margin: 0 auto;
+  padding: 10px 0;
+  display:flex;
+  align-items:center;
+  gap: 12px;
+}
+
+.wl-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width: 180px;
+}
+.wl-brand img{ width:28px; height:28px; }
+.wl-brand strong{ font-size: 16px; }
+
+.wl-org{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex: 1;
+  justify-content:center;
+  text-align:center;
+}
+.wl-org img{ width:32px; height:32px; border-radius:8px; }
+
+.wl-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width: 220px;
+  justify-content:flex-end;
+}
+
+.wl-actions select, .wl-actions button{
+  max-width: 140px;
+}
+
+/* FOOTER */
+.wl-footer{
+  border-top: 1px solid var(--wl-border);
+  padding: 18px 0;
+  opacity: 0.95;
+}
+
+.wl-footer__inner{
+  width: min(var(--wl-max), calc(100% - (var(--wl-pad) * 2)));
+  margin: 0 auto;
+  display:flex;
+  gap: 18px;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  justify-content:space-between;
+}
+
+.wl-footer__col{
+  min-width: 200px;
+}
+
+.wl-footer__col h4{
+  margin: 0 0 8px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+.wl-footer__col a, .wl-footer__col div{
+  display:block;
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.9;
+  text-decoration:none;
+}
+
+/* CARDS */
+.wl-card{
+  background: var(--wl-card);
+  border: 1px solid var(--wl-border);
+  border-radius: 14px;
+}
+
+.wl-cards{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (max-width: 900px){
+  .wl-cards{ grid-template-columns: 1fr; }
+  .wl-org{ justify-content:flex-start; }
+  .wl-actions{ min-width: unset; }
+  .wl-brand{ min-width: unset; }
+}
