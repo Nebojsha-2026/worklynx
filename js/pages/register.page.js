@@ -2,6 +2,12 @@
 import { redirectIfLoggedIn } from "../core/guards.js";
 import { getSupabase } from "../core/supabaseClient.js";
 
+function getResumeInvite() {
+  const hash = window.location.hash;
+  if (!hash.startsWith("#resumeInvite=")) return null;
+  return decodeURIComponent(hash.replace("#resumeInvite=", ""));
+}
+
 await redirectIfLoggedIn();
 
 const form = document.querySelector("#registerForm");
