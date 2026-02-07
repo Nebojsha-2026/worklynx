@@ -9,6 +9,9 @@ export function renderHeader({ companyName, companyLogoUrl }) {
   const logoMark = path("/assets/images/logo-mark.png");
   const orgLogo = companyLogoUrl || path("/assets/images/placeholder-company-logo.png");
 
+  const globeIcon = path("/assets/icons/globe.svg");
+  const bellIcon = path("/assets/icons/bell.svg");
+
   header.innerHTML = `
     <div class="wl-header__inner">
       <div class="wl-brand">
@@ -25,19 +28,30 @@ export function renderHeader({ companyName, companyLogoUrl }) {
       </div>
 
       <div class="wl-actions">
-        <select id="wlLang" aria-label="Language">
-          <option value="en">English</option>
-          <option value="mk">Macedonian</option>
-          <option value="hi">Indian</option>
-          <option value="zh">Chinese</option>
-          <option value="fil">Philippines</option>
-          <option value="id">Indonesian</option>
-        </select>
+        <!-- Language (globe button + menu) -->
+        <div class="wl-menu" style="position:relative;">
+          <button id="wlLangBtn" class="wl-btn" type="button" title="Language" style="padding:8px 10px;">
+            <img src="${globeIcon}" alt="Language" style="width:18px; height:18px; vertical-align:middle;">
+          </button>
 
+          <div id="wlLangMenu" class="wl-card" style="
+              display:none; position:absolute; right:0; top:42px; width:180px;
+              padding:8px; background: rgba(0,0,0,0.35);">
+            ${langItem("English", "en")}
+            ${langItem("Macedonian", "mk")}
+            ${langItem("Indian", "hi")}
+            ${langItem("Chinese", "zh")}
+            ${langItem("Philippines", "fil")}
+            ${langItem("Indonesian", "id")}
+          </div>
+        </div>
+
+        <!-- Notifications -->
         <button id="wlBell" class="wl-btn" type="button" title="Notifications" style="padding:8px 10px;">
-          🔔
+          <img src="${bellIcon}" alt="Notifications" style="width:18px; height:18px; vertical-align:middle;">
         </button>
 
+        <!-- Account -->
         <div class="wl-menu" style="position:relative;">
           <button id="wlAccountBtn" class="wl-btn" type="button" style="padding:8px 10px;">
             Account ▾
@@ -56,16 +70,38 @@ export function renderHeader({ companyName, companyLogoUrl }) {
     </div>
   `;
 
-  // Dropdown toggle
-  const btn = header.querySelector("#wlAccountBtn");
-  const menu = header.querySelector("#wlAccountMenu");
-  btn.addEventListener("click", () => {
-    menu.style.display = menu.style.display === "none" ? "block" : "none";
+  // Account dropdown
+  const accBtn = header.querySelector("#wlAccountBtn");
+  const accMenu = header.querySelector("#wlAccountMenu");
+
+  accBtn.addEventListener("click", () => {
+    accMenu.style.display = accMenu.style.display === "none" ? "block" : "none";
   });
 
-  // Close on outside click
+  // Language menu
+  const langBtn = header.querySelector("#wlLangBtn");
+  const langMenu = header.querySelector("#wlLangMenu");
+
+  langBtn.addEventListener("click", () => {
+    langMenu.style.display = langMenu.style.display === "none" ? "block" : "none";
+  });
+
+  // Language click (placeholder for now – we’ll hook i18n later)
+  header.querySelectorAll("[data-lang]").forEach((el) => {
+    el.addEventListener("click", () => {
+      const code = el.getAttribute("data-lang");
+      // TODO: hook to your i18n.js later
+      console.log("Language set:", code);
+      langMenu.style.display = "none";
+    });
+  });
+
+  // Close menus on outside click
   document.addEventListener("click", (e) => {
-    if (!header.contains(e.target)) menu.style.display = "none";
+    if (!header.contains(e.target)) {
+      accMenu.style.display = "none";
+      langMenu.style.display = "none";
+    }
   });
 
   // Logout
@@ -74,7 +110,16 @@ export function renderHeader({ companyName, companyLogoUrl }) {
     window.location.replace(path("/login.html"));
   });
 
+  // Notifications (placeholder)
+  header.querySelector("#wlBell").addEventListener("click", () => {
+    alert("Notifications (coming soon)");
+  });
+
   return header;
+}
+
+function langItem(label, code) {
+  return `<button type="button" data-lang="${code}" class="wl-btn" style="width:100%; text-align:left; margin:4px 0; padding:8px 10px;">${label}</button>`;
 }
 
 function escapeHtml(str) {
