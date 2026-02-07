@@ -57,9 +57,9 @@ document.querySelector("#inviteForm").addEventListener("submit", async (e) => {
       role,
     });
 
-    const inviteUrl =
-      `${window.location.origin}` +
-      path(`/accept-invite.html?token=${encodeURIComponent(res.token)}`);
+   const inviteUrl =
+  `${window.location.origin}` +
+  path(`/accept-invite.html#token=${encodeURIComponent(res.token)}`);
 
     document.querySelector("#inviteResult").innerHTML = `
       <div class="wl-card" style="padding:12px;">
