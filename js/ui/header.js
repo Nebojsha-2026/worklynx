@@ -1,4 +1,5 @@
 // js/ui/header.js
+import { path } from "../core/config.js";
 import { signOut } from "../core/auth.js";
 
 export function renderHeader({ appName = "WorkLynx", companyName = "", companyLogoUrl = "" } = {}) {
@@ -8,14 +9,14 @@ export function renderHeader({ appName = "WorkLynx", companyName = "", companyLo
   el.innerHTML = `
     <div class="wl-header__left">
       <a class="wl-brand" href="/index.html">
-        <img src="/assets/images/logo-mark.png" alt="${appName}" class="wl-brand__logo" />
+        <img src="${path("/assets/images/logo-mark.png")}" alt="${appName}" class="wl-brand__logo" />
         <span class="wl-brand__name">${appName}</span>
       </a>
     </div>
 
     <div class="wl-header__center">
       <div class="wl-company">
-        <img src="${companyLogoUrl || "/assets/images/placeholder-company-logo.png"}"
+       <img src="${companyLogoUrl || path("/assets/images/placeholder-company-logo.png")}"
              class="wl-company__logo" alt="Company" />
         <span class="wl-company__name">${companyName || "—"}</span>
       </div>
