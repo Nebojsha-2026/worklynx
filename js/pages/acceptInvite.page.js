@@ -7,16 +7,19 @@ import { dashboardPathForRole } from "../core/roles.js";
 async function main() {
   const statusEl = document.querySelector("#status");
 
-  function getToken() {
-    const url = new URL(window.location.href);
-    return url.searchParams.get("token");
-  }
+  function getTokenFromFragment() {
+  const hash = window.location.hash; // "#token=..."
+  if (!hash.startsWith("#token=")) return null;
+  return decodeURIComponent(hash.replace("#token=", ""));
+}
 
-  const token = getToken();
+  const token = getTokenFromFragment();
   if (!token) {
     statusEl.textContent = "Missing invite token.";
     return;
   }
+  // Remove token from address bar immediately
+history.replaceState(null, "", window.location.pathname);
 
   const session = await getSession();
   if (!session?.user) {
