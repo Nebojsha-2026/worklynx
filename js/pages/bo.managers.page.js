@@ -1,10 +1,10 @@
 // js/pages/bo.managers.page.js
-import { enforceRoleRouting } from "../core/guards.js";
+import { requireRole } from "../core/guards.js";
 import { renderHeader } from "../ui/header.js";
 import { renderFooter } from "../ui/footer.js";
 import { loadOrgContext } from "../core/orgContext.js";
 
-await enforceRoleRouting();
+await requireRole(["BO", "BM"]); // BO and BM can access managers page
 
 const org = await loadOrgContext();
 
