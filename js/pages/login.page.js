@@ -20,9 +20,18 @@ form.addEventListener("submit", async (e) => {
   const password = passEl.value;
 
   try {
-    await signInWithEmail(email, password);
-    // After login, redirect based on roles/admin
-    await redirectIfLoggedIn();
+  await signInWithEmail(email, password);
+
+const resumeToken = getResumeInvite();
+if (resumeToken) {
+  window.location.replace(
+    path(`/accept-invite.html#token=${encodeURIComponent(resumeToken)}`)
+  );
+  return;
+}
+
+await redirectIfLoggedIn();
+
   } catch (err) {
     alert(err.message || "Login failed");
   }
