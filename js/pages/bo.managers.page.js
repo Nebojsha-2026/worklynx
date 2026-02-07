@@ -1,10 +1,12 @@
 // js/pages/bo.managers.page.js
-import { requireRole } from "../core/guards.js";
 import { renderHeader } from "../ui/header.js";
 import { renderFooter } from "../ui/footer.js";
 import { loadOrgContext } from "../core/orgContext.js";
+import { requireRole } from "../core/guards.js";
+import { path } from "../core/config.js";
+import { createInvite } from "../data/invites.api.js";
 
-await requireRole(["BO", "BM"]); // BO and BM can access managers page
+await requireRole(["BO", "BM"]);
 
 const org = await loadOrgContext();
 
@@ -35,25 +37,43 @@ main.innerHTML = `
         <option value="MANAGER">Manager</option>
       </select>
 
-      <button class="wl-btn" type="submit">Generate invite link (next step)</button>
+      <button class="wl-btn" type="submit">Create invite</button>
     </form>
 
     <div id="inviteResult" style="margin-top:12px;"></div>
   </section>
 `;
 
-document.querySelector("#inviteForm").addEventListener("submit", (e) => {
+document.querySelector("#inviteForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+
   const email = document.querySelector("#inviteEmail").value.trim();
   const role = document.querySelector("#inviteRole").value;
 
-  // Next step will call Supabase + generate a real token link
-  const result = document.querySelector("#inviteResult");
-  result.innerHTML = `
-    <div class="wl-card" style="padding:12px;">
-      <strong>Next step:</strong> we will create an invite in Supabase and generate a link.<br/>
-      Email: <code>${email}</code><br/>
-      Role: <code>${role}</code>
-    </div>
-  `;
+  try {
+    const res = await createInvite({
+      organizationId: org.id,
+      email,
+      role,
+    });
+
+    const inviteUrl =
+      `${window.location.origin}` +
+      path(`/accept-invite.html?token=${encodeURIComponent(res.token)}`);
+
+    document.querySelector("#inviteResult").innerHTML = `
+      <div class="wl-card" style="padding:12px;">
+        <div><strong>Invite created</strong></div>
+        <div>Email: <code>${res.invited_email}</code></div>
+        <div>Role: <code>${res.invited_role}</code></div>
+        <div style="margin-top:8px;">
+          Invite link:<br/>
+          <input style="width:100%; padding:8px;" readonly value="${inviteUrl}" />
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Failed to create invite.");
+  }
 });
