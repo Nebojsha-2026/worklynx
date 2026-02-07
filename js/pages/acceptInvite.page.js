@@ -26,8 +26,8 @@ history.replaceState(null, "", window.location.pathname);
   statusEl.textContent = "Please log in or register to accept the invite.";
 
   const resumeUrl =
-    path("/login.html") +
-    `#resumeInvite=${encodeURIComponent(token)}`;
+  path("/register.html") +
+  `#resumeInvite=${encodeURIComponent(token)}`;
 
   window.location.replace(resumeUrl);
   return;
