@@ -120,6 +120,60 @@ main.wl-page, main.wl-auth{
 
 @media (max-width: 900px){
   .wl-cards{ grid-template-columns: 1fr; }
+
+  /* SIDEBAR LAYOUT */
+.wl-shell{
+  width: min(var(--wl-max), calc(100% - (var(--wl-pad) * 2)));
+  margin: 0 auto;
+  display:grid;
+  grid-template-columns: 240px 1fr;
+  gap: 14px;
+  padding: 18px 0 32px;
+}
+
+.wl-sidebar{
+  padding: 12px;
+  height: fit-content;
+  position: sticky;
+  top: 64px; /* below header */
+}
+
+.wl-snav{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+
+.wl-snav__item{
+  padding: 10px 10px;
+  border-radius: 10px;
+  text-decoration:none;
+  font-size: 14px;
+  opacity: .92;
+  border: 1px solid transparent;
+}
+
+.wl-snav__item:hover{
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.10);
+}
+
+.wl-snav__item.is-active{
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.18);
+  opacity: 1;
+}
+
+@media (max-width: 900px){
+  .wl-shell{
+    grid-template-columns: 1fr;
+  }
+  .wl-sidebar{
+    position: relative;
+    top: auto;
+  }
+}
+
   .wl-org{ justify-content:flex-start; }
   .wl-actions{ min-width: unset; }
   .wl-brand{ min-width: unset; }
