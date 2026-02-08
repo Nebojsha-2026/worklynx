@@ -1,1 +1,28 @@
+/* =========================
+   FORM CONTROLS
+   ========================= */
 
+.wl-form input,
+.wl-form select,
+.wl-form textarea{
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10, 18, 30, 0.35);
+  color: rgba(255,255,255,0.95);
+  outline: none;
+  font-size: 14px;
+}
+
+.wl-form textarea{
+  resize: vertical;
+  min-height: 90px;
+}
+
+.wl-form input:focus,
+.wl-form select:focus,
+.wl-form textarea:focus{
+  border-color: rgba(255,255,255,0.26);
+  background: rgba(10, 18, 30, 0.45);
+}
