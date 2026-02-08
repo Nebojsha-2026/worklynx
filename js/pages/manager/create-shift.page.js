@@ -1,10 +1,10 @@
 // js/pages/manager.create-shift.page.js
-import { requireRole } from "../core/guards.js";
-import { renderHeader } from "../ui/header.js";
-import { renderFooter } from "../ui/footer.js";
-import { renderSidebar } from "../ui/sidebar.js";
-import { loadOrgContext } from "../core/orgContext.js";
-import { createShift } from "../data/shifts.api.js";
+import { requireRole } from "../../core/guards.js";
+import { renderHeader } from "../../ui/header.js";
+import { renderFooter } from "../../ui/footer.js";
+import { renderSidebar } from "../../ui/sidebar.js";
+import { loadOrgContext } from "../../core/orgContext.js";
+import { createShift } from "../../data/shifts.api.js";
 
 await requireRole(["BO", "BM", "MANAGER"]);
 
