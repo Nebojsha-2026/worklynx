@@ -26,3 +26,54 @@
   border-color: rgba(255,255,255,0.26);
   background: rgba(10, 18, 30, 0.45);
 }
+/* ===== FORMS ===== */
+.wl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wl-form label {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.wl-form input,
+.wl-form textarea,
+.wl-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--wl-border);
+  background: rgba(255,255,255,0.04);
+  color: inherit;
+  font-size: 14px;
+}
+
+.wl-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.wl-form input::placeholder,
+.wl-form textarea::placeholder {
+  opacity: 0.6;
+}
+
+/* ===== FORM ACTIONS ===== */
+.wl-form button.wl-btn {
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+/* ===== RESULT / FEEDBACK ===== */
+#wresult,
+#result {
+  margin-top: 16px;
+}
+
+/* Success card spacing */
+#result .wl-card {
+  margin-top: 12px;
+}
