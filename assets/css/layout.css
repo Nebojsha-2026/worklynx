@@ -1,12 +1,4 @@
 /* assets/css/layout.css */
-
-:root{
-  --wl-max: 1100px;
-  --wl-pad: 16px;
-  --wl-card: rgba(255,255,255,0.06);
-  --wl-border: rgba(255,255,255,0.12);
-}
-
 body{
   margin:0;
   min-height:100vh;
