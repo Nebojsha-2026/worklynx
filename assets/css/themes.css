@@ -1,1 +1,19 @@
+/* assets/css/themes.css */
+
+:root{
+  /* Layout + components tokens */
+  --wl-max: 1100px;
+  --wl-pad: 16px;
+
+  --wl-card: rgba(255,255,255,0.06);
+  --wl-border: rgba(255,255,255,0.12);
+
+  /* App colors */
+  --bg: #0b1220;
+  --text: rgba(255,255,255,0.92);
+  --muted: rgba(255,255,255,0.68);
+
+  --brand: #7c3aed;
+  --brand2: #22c55e;
+}
 
