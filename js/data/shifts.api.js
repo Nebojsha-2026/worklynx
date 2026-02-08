@@ -32,9 +32,11 @@ export async function listShifts({ organizationId, limit = 50 }) {
     .from("shifts")
     .select("*")
     .eq("organization_id", organizationId)
+    .order("shift_date", { ascending: true })
     .order("start_at", { ascending: true })
     .limit(limit);
 
   if (error) throw error;
   return data || [];
 }
+
